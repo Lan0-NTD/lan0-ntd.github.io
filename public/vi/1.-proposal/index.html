@@ -15,21 +15,21 @@
     <title>Proposal :: Báo cáo thực tập</title>
 
     
-    <link href="../../css/nucleus.css?1762795743" rel="stylesheet">
-    <link href="../../css/fontawesome-all.min.css?1762795743" rel="stylesheet">
-    <link href="../../css/hybrid.css?1762795743" rel="stylesheet">
-    <link href="../../css/featherlight.min.css?1762795743" rel="stylesheet">
-    <link href="../../css/perfect-scrollbar.min.css?1762795743" rel="stylesheet">
-    <link href="../../css/auto-complete.css?1762795743" rel="stylesheet">
-    <link href="../../css/atom-one-dark-reasonable.css?1762795743" rel="stylesheet">
-    <link href="../../css/theme.css?1762795743" rel="stylesheet">
-    <link href="../../css/hugo-theme.css?1762795743" rel="stylesheet">
+    <link href="../../css/nucleus.css?1762796858" rel="stylesheet">
+    <link href="../../css/fontawesome-all.min.css?1762796858" rel="stylesheet">
+    <link href="../../css/hybrid.css?1762796858" rel="stylesheet">
+    <link href="../../css/featherlight.min.css?1762796858" rel="stylesheet">
+    <link href="../../css/perfect-scrollbar.min.css?1762796858" rel="stylesheet">
+    <link href="../../css/auto-complete.css?1762796858" rel="stylesheet">
+    <link href="../../css/atom-one-dark-reasonable.css?1762796858" rel="stylesheet">
+    <link href="../../css/theme.css?1762796858" rel="stylesheet">
+    <link href="../../css/hugo-theme.css?1762796858" rel="stylesheet">
     
-    <link href="../../css/theme-workshop.css?1762795743" rel="stylesheet">
+    <link href="../../css/theme-workshop.css?1762796858" rel="stylesheet">
     
     
 
-    <script src="../../js/jquery-3.3.1.min.js?1762795743"></script>
+    <script src="../../js/jquery-3.3.1.min.js?1762796858"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -88,14 +88,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="../../js/lunr.min.js?1762795743"></script>
-<script type="text/javascript" src="../../js/auto-complete.js?1762795743"></script>
+<script type="text/javascript" src="../../js/lunr.min.js?1762796858"></script>
+<script type="text/javascript" src="../../js/auto-complete.js?1762796858"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="../../js/search.js?1762795743"></script>
+<script type="text/javascript" src="../../js/search.js?1762796858"></script>
  
   </div>
 
@@ -413,8 +413,8 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
       </tr>
       <tr>
           <td>6</td>
-          <td>AWS Lambda (Invoke)</td>
-          <td>Được API Gateway kích hoạt. Hàm Lambda này thực thi một tác vụ nhanh, trong trường hợp này là để gọi và kích hoạt luồng quy trình (workflow) chính.</td>
+          <td>VPC Endpoint</td>
+          <td>Được API Gateway kích hoạt. Endpoint này được API Gateway sử dụng để giao tiếp với EC2 host n8n.</td>
       </tr>
       <tr>
           <td>7</td>
@@ -492,7 +492,6 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 <hr>
 <h3 id="42-tối-ưu-cho-môi-trường-production">4.2 Tối ưu cho môi trường production</h3>
 <ul>
-<li>Dùng RDS read replica để giảm tải truy vấn phân tích.</li>
 <li>Tối ưu truy xuất embedding với DynamoDB chế độ on-demand.</li>
 <li>Cache đầu ra LLM trung gian lên S3 để tái sử dụng.</li>
 <li>Bật autoscaling trên EC2 cho workload workflow.</li>
@@ -518,11 +517,11 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
       </tr>
       <tr>
           <td>Storage</td>
-          <td>RDS PostgreSQL, DynamoDB, S3</td>
+          <td>SQL, DynamoDB, S3</td>
       </tr>
       <tr>
           <td>Orchestration</td>
-          <td>EC2 instance (t4g.large)</td>
+          <td>EC2 instance</td>
       </tr>
       <tr>
           <td>Security</td>
@@ -603,12 +602,6 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
           <td></td>
       </tr>
       <tr>
-          <td>User Database</td>
-          <td>RDS for PostgreSQL</td>
-          <td>8.73</td>
-          <td></td>
-      </tr>
-      <tr>
           <td>Vector Database</td>
           <td>DynamoDB</td>
           <td>4.02</td>
@@ -672,11 +665,11 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 </table>
 <h3 id="tối-ưu-chi-phí">Tối ưu chi phí</h3>
 <p>Phần lớn thành phần sử dụng dịch vụ serverless và managed của AWS, giảm thiểu tài nguyên nhàn rỗi và chi phí vận hành.</p>
-<p>Compute: EC2 dùng Graviton t4g.large chạy giới hạn 12h/ngày.</p>
-<p>Database: RDS t4g.micro và DynamoDB (50 GB) được cấu hình vừa đủ cho tải dev/test, tránh dư thừa tài nguyên.</p>
+<p>Compute: EC2 dùng Graviton t4g.medium chạy giới hạn 10h/ngày.</p>
+<p>Database: EC2 t4g.micro và DynamoDB được cấu hình vừa đủ cho tải dev/test, tránh dư thừa tài nguyên.</p>
 <p>Storage: Hai bucket S3 tách biệt cho dữ liệu gốc và web giúp tổ chức dữ liệu hợp lý và kiểm soát chi phí.</p>
 <p>Tích hợp &amp; bảo mật: Dùng HTTP API Gateway, một WAF rule, và một Route 53 zone để giảm chi phí định kỳ.</p>
-<p>Tổng chi phí khoảng 65 USD/tháng, thể hiện một hệ thống đã được tối ưu tốt.</p>
+<p>Tổng chi phí khoảng 79 USD/tháng, thể hiện một hệ thống đã được tối ưu tốt.</p>
 <hr>
 <h2 id="7-đánh-giá-rủi-ro">7. Đánh giá rủi ro</h2>
 <table>
@@ -711,7 +704,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
       <tr>
           <td>Hiệu năng khi tải cao</td>
           <td>Cao</td>
-          <td>Bật autoscaling EC2 và RDS read replicas</td>
+          <td>Bật autoscaling EC2</td>
       </tr>
   </tbody>
 </table>
@@ -722,7 +715,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 <li>Triển khai pipeline phân tích hợp đồng end-to-end trên AWS.</li>
 <li>Backend mô-đun điều phối bằng n8n trên EC2.</li>
 <li>Workflow CI/CD bảo mật qua Amplify.</li>
-<li>Xử lý dữ liệu linh hoạt, mở rộng bằng RDS + DynamoDB.</li>
+<li>Xử lý dữ liệu linh hoạt, mở rộng bằng DynamoDB.</li>
 </ul>
 <h3 id="82-giá-trị-dài-hạn">8.2 Giá trị dài hạn</h3>
 <ul>
@@ -802,19 +795,19 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="../../js/clipboard.min.js?1762795743"></script>
-    <script src="../../js/perfect-scrollbar.min.js?1762795743"></script>
-    <script src="../../js/perfect-scrollbar.jquery.min.js?1762795743"></script>
-    <script src="../../js/jquery.sticky.js?1762795743"></script>
-    <script src="../../js/featherlight.min.js?1762795743"></script>
-    <script src="../../js/highlight.pack.js?1762795743"></script>
+    <script src="../../js/clipboard.min.js?1762796858"></script>
+    <script src="../../js/perfect-scrollbar.min.js?1762796858"></script>
+    <script src="../../js/perfect-scrollbar.jquery.min.js?1762796858"></script>
+    <script src="../../js/jquery.sticky.js?1762796858"></script>
+    <script src="../../js/featherlight.min.js?1762796858"></script>
+    <script src="../../js/highlight.pack.js?1762796858"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="../../js/modernizr.custom-3.6.0.js?1762795743"></script>
-    <script src="../../js/learn.js?1762795743"></script>
-    <script src="../../js/hugo-learn.js?1762795743"></script>
+    <script src="../../js/modernizr.custom-3.6.0.js?1762796858"></script>
+    <script src="../../js/learn.js?1762796858"></script>
+    <script src="../../js/hugo-learn.js?1762796858"></script>
 
-    <link href="../../mermaid/mermaid.css?1762795743" rel="stylesheet" />
-    <script src="../../mermaid/mermaid.js?1762795743"></script>
+    <link href="../../mermaid/mermaid.css?1762796858" rel="stylesheet" />
+    <script src="../../mermaid/mermaid.js?1762796858"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

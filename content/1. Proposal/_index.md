@@ -79,7 +79,7 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 - Frontend (Amplify + S3) – UI for contract upload, risk visualization, and report generation.  
 - API Gateway + Cognito – Authentication and API access management.  
 - EC2 (n8n Orchestrator) – Runs workflow templates (WT-01 → WT-07), uploads and normalizes files to S3.  
-- RDS + DynamoDB – Store relational metadata and embeddings.  
+- SQL + DynamoDB – Store relational metadata and embeddings.  
 - AI API Integrations – Provide text extraction and reasoning logic.  
 - CloudWatch + Secrets Manager – Monitor health, rotate keys, and secure credentials.
 
@@ -106,8 +106,7 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 ---
 
 ### 4.2 Optimization For Production
-
-- Utilize RDS read replicas to offload analytical queries.  
+ 
 - Optimize embedding retrieval with DynamoDB on-demand capacity.  
 - Cache intermediate LLM outputs to S3 for reusability.  
 - Enable autoscaling on EC2 for workflow workloads.  
@@ -121,8 +120,8 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 |-----------|---------------|
 | Programming Stack | n8n workflows, Net.js 15 + TailwindCSS (Amplify) |
 | External APIs | DeepSeek OCR, GPT-5 |
-| Storage | RDS PostgreSQL, DynamoDB, S3 |
-| Orchestration | EC2 instance (t4g.large) |
+| Storage | SQL, DynamoDB, S3 |
+| Orchestration | EC2 instance |
 | Security | WAF, Secrets Manager, Cognito |
 | Monitoring | CloudWatch + n8n Alert Hooks |
 
@@ -146,8 +145,7 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 |------------|-------------|--------------------|--------|
 | Frontend Hosting | Amplify | 3.68 |  |
 | DNS/Routing | Route 53 | 2.04 |  |
-| Backend Compute | EC2 | 16.12 |  |
-| User Database | RDS for PostgreSQL | 8.73 |  |
+| Backend Compute/User Database | EC2 | 16.12 |  |
 | Vector Database | DynamoDB | 4.02 |  |
 | Storage | S3 | 1.93 |  |
 | Request Routing | API Gateway | 1.29 |  |
@@ -163,15 +161,15 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 
 Most components use serverless and managed AWS services, minimizing idle resources and operational overhead.
 
-Compute: EC2 uses Graviton t4g.large with limited runtime (12h/day).
+Compute: EC2 uses Graviton t4g.medium with limited runtime (10h/day).
 
-Database: RDS t4g.micro and DynamoDB (50 GB) are right-sized for dev/test load, avoiding over-provisioning.
+Database: EC2 t4g.micro and DynamoDB are right-sized for dev/test load, avoiding over-provisioning.
 
 Storage: Separate S3 buckets for raw data and web hosting keep data organized and cost-controlled.
 
 Integration & Security: Use of HTTP API Gateway, single WAF rule, and one Route 53 hosted zone reduces costs.
 
-Overall monthly cost is around 65 USD, reflecting a well-optimized deployment.
+Overall monthly cost is around 79 USD, reflecting a well-optimized deployment.
 
 ---
 
@@ -180,10 +178,10 @@ Overall monthly cost is around 65 USD, reflecting a well-optimized deployment.
 | Risk | Likelihood | Mitigation |
 |------|-------------|-------------|
 | High API costs for LLM usage | Medium | Use caching, partial context retrieval |
-| Data privacy concerns | Low | Encrypt S3 and Aurora data with KMS |
+| Data privacy concerns | Low | Encrypt S3 and DynamoDB data with KMS |
 | Workflow errors or timeouts | Medium | n8n retry logic + CloudWatch alarms |
 | Vendor API change (OpenAI/DeepSeek) | Low | API abstraction layer for replacement |
-| Performance under heavy load | High | EC2 autoscaling and Aurora read replicas |
+| Performance under heavy load | High | EC2 autoscaling |
 
 ---
 
@@ -194,7 +192,7 @@ Overall monthly cost is around 65 USD, reflecting a well-optimized deployment.
 - End-to-end contract analytics pipeline deployed fully on AWS.  
 - Modular backend orchestration via n8n on EC2.  
 - Secure, CI/CD-driven workflow through Amplify.  
-- Scalable data handling with RDS + DynamoDB.
+- Scalable data handling with DynamoDB.
 
 ### 8.2 Long-term Value
 

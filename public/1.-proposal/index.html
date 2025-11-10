@@ -15,21 +15,21 @@
     <title>Proposal :: Internship Report</title>
 
     
-    <link href="../css/nucleus.css?1762795743" rel="stylesheet">
-    <link href="../css/fontawesome-all.min.css?1762795743" rel="stylesheet">
-    <link href="../css/hybrid.css?1762795743" rel="stylesheet">
-    <link href="../css/featherlight.min.css?1762795743" rel="stylesheet">
-    <link href="../css/perfect-scrollbar.min.css?1762795743" rel="stylesheet">
-    <link href="../css/auto-complete.css?1762795743" rel="stylesheet">
-    <link href="../css/atom-one-dark-reasonable.css?1762795743" rel="stylesheet">
-    <link href="../css/theme.css?1762795743" rel="stylesheet">
-    <link href="../css/hugo-theme.css?1762795743" rel="stylesheet">
+    <link href="../css/nucleus.css?1762796858" rel="stylesheet">
+    <link href="../css/fontawesome-all.min.css?1762796858" rel="stylesheet">
+    <link href="../css/hybrid.css?1762796858" rel="stylesheet">
+    <link href="../css/featherlight.min.css?1762796858" rel="stylesheet">
+    <link href="../css/perfect-scrollbar.min.css?1762796858" rel="stylesheet">
+    <link href="../css/auto-complete.css?1762796858" rel="stylesheet">
+    <link href="../css/atom-one-dark-reasonable.css?1762796858" rel="stylesheet">
+    <link href="../css/theme.css?1762796858" rel="stylesheet">
+    <link href="../css/hugo-theme.css?1762796858" rel="stylesheet">
     
-    <link href="../css/theme-workshop.css?1762795743" rel="stylesheet">
+    <link href="../css/theme-workshop.css?1762796858" rel="stylesheet">
     
     
 
-    <script src="../js/jquery-3.3.1.min.js?1762795743"></script>
+    <script src="../js/jquery-3.3.1.min.js?1762796858"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -88,14 +88,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="../js/lunr.min.js?1762795743"></script>
-<script type="text/javascript" src="../js/auto-complete.js?1762795743"></script>
+<script type="text/javascript" src="../js/lunr.min.js?1762796858"></script>
+<script type="text/javascript" src="../js/auto-complete.js?1762796858"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/";
     
 </script>
-<script type="text/javascript" src="../js/search.js?1762795743"></script>
+<script type="text/javascript" src="../js/search.js?1762796858"></script>
  
   </div>
 
@@ -466,7 +466,7 @@
 <li>Frontend (Amplify + S3) – UI for contract upload, risk visualization, and report generation.</li>
 <li>API Gateway + Cognito – Authentication and API access management.</li>
 <li>EC2 (n8n Orchestrator) – Runs workflow templates (WT-01 → WT-07), uploads and normalizes files to S3.</li>
-<li>RDS + DynamoDB – Store relational metadata and embeddings.</li>
+<li>SQL + DynamoDB – Store relational metadata and embeddings.</li>
 <li>AI API Integrations – Provide text extraction and reasoning logic.</li>
 <li>CloudWatch + Secrets Manager – Monitor health, rotate keys, and secure credentials.</li>
 </ul>
@@ -490,7 +490,6 @@
 <hr>
 <h3 id="42-optimization-for-production">4.2 Optimization For Production</h3>
 <ul>
-<li>Utilize RDS read replicas to offload analytical queries.</li>
 <li>Optimize embedding retrieval with DynamoDB on-demand capacity.</li>
 <li>Cache intermediate LLM outputs to S3 for reusability.</li>
 <li>Enable autoscaling on EC2 for workflow workloads.</li>
@@ -516,11 +515,11 @@
       </tr>
       <tr>
           <td>Storage</td>
-          <td>RDS PostgreSQL, DynamoDB, S3</td>
+          <td>SQL, DynamoDB, S3</td>
       </tr>
       <tr>
           <td>Orchestration</td>
-          <td>EC2 instance (t4g.large)</td>
+          <td>EC2 instance</td>
       </tr>
       <tr>
           <td>Security</td>
@@ -595,15 +594,9 @@
           <td></td>
       </tr>
       <tr>
-          <td>Backend Compute</td>
+          <td>Backend Compute/User Database</td>
           <td>EC2</td>
           <td>16.12</td>
-          <td></td>
-      </tr>
-      <tr>
-          <td>User Database</td>
-          <td>RDS for PostgreSQL</td>
-          <td>8.73</td>
           <td></td>
       </tr>
       <tr>
@@ -670,11 +663,11 @@
 </table>
 <h3 id="cost-optimization">Cost Optimization</h3>
 <p>Most components use serverless and managed AWS services, minimizing idle resources and operational overhead.</p>
-<p>Compute: EC2 uses Graviton t4g.large with limited runtime (12h/day).</p>
-<p>Database: RDS t4g.micro and DynamoDB (50 GB) are right-sized for dev/test load, avoiding over-provisioning.</p>
+<p>Compute: EC2 uses Graviton t4g.medium with limited runtime (10h/day).</p>
+<p>Database: EC2 t4g.micro and DynamoDB are right-sized for dev/test load, avoiding over-provisioning.</p>
 <p>Storage: Separate S3 buckets for raw data and web hosting keep data organized and cost-controlled.</p>
 <p>Integration &amp; Security: Use of HTTP API Gateway, single WAF rule, and one Route 53 hosted zone reduces costs.</p>
-<p>Overall monthly cost is around 65 USD, reflecting a well-optimized deployment.</p>
+<p>Overall monthly cost is around 79 USD, reflecting a well-optimized deployment.</p>
 <hr>
 <h2 id="7-risk-assessment">7. Risk Assessment</h2>
 <table>
@@ -694,7 +687,7 @@
       <tr>
           <td>Data privacy concerns</td>
           <td>Low</td>
-          <td>Encrypt S3 and Aurora data with KMS</td>
+          <td>Encrypt S3 and DynamoDB data with KMS</td>
       </tr>
       <tr>
           <td>Workflow errors or timeouts</td>
@@ -709,7 +702,7 @@
       <tr>
           <td>Performance under heavy load</td>
           <td>High</td>
-          <td>EC2 autoscaling and Aurora read replicas</td>
+          <td>EC2 autoscaling</td>
       </tr>
   </tbody>
 </table>
@@ -720,7 +713,7 @@
 <li>End-to-end contract analytics pipeline deployed fully on AWS.</li>
 <li>Modular backend orchestration via n8n on EC2.</li>
 <li>Secure, CI/CD-driven workflow through Amplify.</li>
-<li>Scalable data handling with RDS + DynamoDB.</li>
+<li>Scalable data handling with DynamoDB.</li>
 </ul>
 <h3 id="82-long-term-value">8.2 Long-term Value</h3>
 <ul>
@@ -800,19 +793,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="../js/clipboard.min.js?1762795743"></script>
-    <script src="../js/perfect-scrollbar.min.js?1762795743"></script>
-    <script src="../js/perfect-scrollbar.jquery.min.js?1762795743"></script>
-    <script src="../js/jquery.sticky.js?1762795743"></script>
-    <script src="../js/featherlight.min.js?1762795743"></script>
-    <script src="../js/highlight.pack.js?1762795743"></script>
+    <script src="../js/clipboard.min.js?1762796858"></script>
+    <script src="../js/perfect-scrollbar.min.js?1762796858"></script>
+    <script src="../js/perfect-scrollbar.jquery.min.js?1762796858"></script>
+    <script src="../js/jquery.sticky.js?1762796858"></script>
+    <script src="../js/featherlight.min.js?1762796858"></script>
+    <script src="../js/highlight.pack.js?1762796858"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="../js/modernizr.custom-3.6.0.js?1762795743"></script>
-    <script src="../js/learn.js?1762795743"></script>
-    <script src="../js/hugo-learn.js?1762795743"></script>
+    <script src="../js/modernizr.custom-3.6.0.js?1762796858"></script>
+    <script src="../js/learn.js?1762796858"></script>
+    <script src="../js/hugo-learn.js?1762796858"></script>
 
-    <link href="../mermaid/mermaid.css?1762795743" rel="stylesheet" />
-    <script src="../mermaid/mermaid.js?1762795743"></script>
+    <link href="../mermaid/mermaid.css?1762796858" rel="stylesheet" />
+    <script src="../mermaid/mermaid.js?1762796858"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -64,7 +64,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 | 3 | Amazon Amplify | (Luồng Frontend) Dịch vụ hosting, build và triển khai ứng dụng web (frontend) cho người dùng. |
 | 4 | Amazo API Gateway | (Luồng Backend) Tiếp nhận các yêu cầu API từ người dùng, đóng vai trò là "cổng" cho mọi logic nghiệp vụ phía sau. |
 | 5 | Amazon Cognito | Được API Gateway gọi để xác thực và cấp quyền cho người dùng, đảm bảo chỉ người dùng hợp lệ mới được truy cập API. |
-| 6 | AWS Lambda (Invoke) | Được API Gateway kích hoạt. Hàm Lambda này thực thi một tác vụ nhanh, trong trường hợp này là để gọi và kích hoạt luồng quy trình (workflow) chính. |
+| 6 | VPC Endpoint | Được API Gateway kích hoạt. Endpoint này được API Gateway sử dụng để giao tiếp với EC2 host n8n. |
 | 7 | EC2 | Trên EC2 sẽ chạy n8n, một dịch vụ điều phối nhận lệnh từ API Gateway để bắt đầu và quản lý luồng quy trình xử lý dữ liệu và embedding service, dịch vụ con được n8n gọi, chuyên thực hiện tác vụ tạo vector embeddings (vector hóa dữ liệu). EC2 còn lại  sẽ được dùng để lưu trữ dữ cơ sở dữ liệu người dùng SQL  |
 | 8 | Amazon S3 Raw | Dịch vụ lưu trữ đối tượng. |
 | 9 | Amazon DynamoDB | Dịch vụ cơ sở dữ liệu NoSQL. |
@@ -108,7 +108,6 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 
 ### 4.2 Tối ưu cho môi trường production
 
-- Dùng RDS read replica để giảm tải truy vấn phân tích.  
 - Tối ưu truy xuất embedding với DynamoDB chế độ on-demand.  
 - Cache đầu ra LLM trung gian lên S3 để tái sử dụng.  
 - Bật autoscaling trên EC2 cho workload workflow.  
@@ -122,8 +121,8 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 |-----------|---------------|
 | Programming Stack | n8n workflows, Net.js 15 + TailwindCSS (Amplify) |
 | External APIs | DeepSeek OCR, GPT-5 |
-| Storage | RDS PostgreSQL, DynamoDB, S3 |
-| Orchestration | EC2 instance (t4g.large) |
+| Storage | SQL, DynamoDB, S3 |
+| Orchestration | EC2 instance |
 | Security | WAF, Secrets Manager, Cognito |
 | Monitoring | CloudWatch + n8n Alert Hooks |
 
@@ -148,7 +147,6 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 | Frontend Hosting | Amplify | 3.68 |  |
 | DNS/Routing | Route 53 | 2.04 |  |
 | Backend Compute | EC2 | 16.12 |  |
-| User Database | RDS for PostgreSQL | 8.73 |  |
 | Vector Database | DynamoDB | 4.02 |  |
 | Storage | S3 | 1.93 |  |
 | Request Routing | API Gateway | 1.29 |  |
@@ -164,15 +162,15 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 
 Phần lớn thành phần sử dụng dịch vụ serverless và managed của AWS, giảm thiểu tài nguyên nhàn rỗi và chi phí vận hành.
 
-Compute: EC2 dùng Graviton t4g.large chạy giới hạn 12h/ngày.
+Compute: EC2 dùng Graviton t4g.medium chạy giới hạn 10h/ngày.
 
-Database: RDS t4g.micro và DynamoDB (50 GB) được cấu hình vừa đủ cho tải dev/test, tránh dư thừa tài nguyên.
+Database: EC2 t4g.micro và DynamoDB được cấu hình vừa đủ cho tải dev/test, tránh dư thừa tài nguyên.
 
 Storage: Hai bucket S3 tách biệt cho dữ liệu gốc và web giúp tổ chức dữ liệu hợp lý và kiểm soát chi phí.
 
 Tích hợp & bảo mật: Dùng HTTP API Gateway, một WAF rule, và một Route 53 zone để giảm chi phí định kỳ.
 
-Tổng chi phí khoảng 65 USD/tháng, thể hiện một hệ thống đã được tối ưu tốt.
+Tổng chi phí khoảng 79 USD/tháng, thể hiện một hệ thống đã được tối ưu tốt.
 
 ---
 
@@ -184,7 +182,7 @@ Tổng chi phí khoảng 65 USD/tháng, thể hiện một hệ thống đã đ�
 | Lo ngại về quyền riêng tư dữ liệu | Thấp | Mã hóa dữ liệu S3 và Aurora bằng KMS |
 | Lỗi workflow hoặc timeout | Trung bình | Áp dụng retry logic trong n8n + cảnh báo CloudWatch |
 | Thay đổi từ API vendor (OpenAI/DeepSeek) | Thấp | Xây lớp trừu tượng API để dễ thay thế |
-| Hiệu năng khi tải cao | Cao | Bật autoscaling EC2 và RDS read replicas |
+| Hiệu năng khi tải cao | Cao | Bật autoscaling EC2  |
 
 ---
 
@@ -195,7 +193,7 @@ Tổng chi phí khoảng 65 USD/tháng, thể hiện một hệ thống đã đ�
 - Triển khai pipeline phân tích hợp đồng end-to-end trên AWS.  
 - Backend mô-đun điều phối bằng n8n trên EC2.  
 - Workflow CI/CD bảo mật qua Amplify.  
-- Xử lý dữ liệu linh hoạt, mở rộng bằng RDS + DynamoDB.
+- Xử lý dữ liệu linh hoạt, mở rộng bằng DynamoDB.
 
 ### 8.2 Giá trị dài hạn
 
