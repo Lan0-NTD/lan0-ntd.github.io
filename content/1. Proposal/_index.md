@@ -52,7 +52,7 @@ An AI-assisted SaaS platform that:
 
 ## 3. Solution Architecture
 
-![System Architecture Diagram](Pipeline.png)
+![System Architecture Diagram](Pipeline.jpeg)
 
 
 The system is orchestrated by AWS EC2, with automation through n8n workflows. All AI inference and OCR are handled by external APIs (OpenAI + DeepSeekOCR).

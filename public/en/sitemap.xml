@@ -2,52 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:58318/</loc>
+    <loc>//localhost:1313/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:58318/vi/"
+                href="//localhost:1313/vi/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:58318/"
+                href="//localhost:1313/"
                 />
   </url><url>
-    <loc>//localhost:58318/1.-proposal/</loc>
+    <loc>//localhost:1313/1.-proposal/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:58318/vi/1.-proposal/"
+                href="//localhost:1313/vi/1.-proposal/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:58318/1.-proposal/"
+                href="//localhost:1313/1.-proposal/"
                 />
   </url><url>
-    <loc>//localhost:58318/categories/</loc>
+    <loc>//localhost:1313/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:58318/vi/categories/"
+                href="//localhost:1313/vi/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:58318/categories/"
+                href="//localhost:1313/categories/"
                 />
   </url><url>
-    <loc>//localhost:58318/tags/</loc>
+    <loc>//localhost:1313/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:58318/vi/tags/"
+                href="//localhost:1313/vi/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:58318/tags/"
+                href="//localhost:1313/tags/"
                 />
   </url>
 </urlset>

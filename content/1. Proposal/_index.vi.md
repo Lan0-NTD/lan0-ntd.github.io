@@ -50,7 +50,7 @@ Một nền tảng SaaS hỗ trợ bởi AI có khả năng:
 
 ## 3. Kiến trúc giải pháp
 
-![Sơ đồ kiến trúc hệ thống](Pipeline.png)
+![Sơ đồ kiến trúc hệ thống](Pipeline.jpeg)
 
 Hệ thống được điều phối bởi AWS EC2, tự động hóa bằng workflow n8n.  
 Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + DeepSeekOCR).
