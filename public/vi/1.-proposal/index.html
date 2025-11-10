@@ -15,21 +15,21 @@
     <title>Proposal :: Báo cáo thực tập</title>
 
     
-    <link href="../../css/nucleus.css?1762776145" rel="stylesheet">
-    <link href="../../css/fontawesome-all.min.css?1762776145" rel="stylesheet">
-    <link href="../../css/hybrid.css?1762776145" rel="stylesheet">
-    <link href="../../css/featherlight.min.css?1762776145" rel="stylesheet">
-    <link href="../../css/perfect-scrollbar.min.css?1762776145" rel="stylesheet">
-    <link href="../../css/auto-complete.css?1762776145" rel="stylesheet">
-    <link href="../../css/atom-one-dark-reasonable.css?1762776145" rel="stylesheet">
-    <link href="../../css/theme.css?1762776145" rel="stylesheet">
-    <link href="../../css/hugo-theme.css?1762776145" rel="stylesheet">
+    <link href="../../css/nucleus.css?1762794927" rel="stylesheet">
+    <link href="../../css/fontawesome-all.min.css?1762794927" rel="stylesheet">
+    <link href="../../css/hybrid.css?1762794927" rel="stylesheet">
+    <link href="../../css/featherlight.min.css?1762794927" rel="stylesheet">
+    <link href="../../css/perfect-scrollbar.min.css?1762794927" rel="stylesheet">
+    <link href="../../css/auto-complete.css?1762794927" rel="stylesheet">
+    <link href="../../css/atom-one-dark-reasonable.css?1762794927" rel="stylesheet">
+    <link href="../../css/theme.css?1762794927" rel="stylesheet">
+    <link href="../../css/hugo-theme.css?1762794927" rel="stylesheet">
     
-    <link href="../../css/theme-workshop.css?1762776145" rel="stylesheet">
+    <link href="../../css/theme-workshop.css?1762794927" rel="stylesheet">
     
     
 
-    <script src="../../js/jquery-3.3.1.min.js?1762776145"></script>
+    <script src="../../js/jquery-3.3.1.min.js?1762794927"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -88,14 +88,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="../../js/lunr.min.js?1762776145"></script>
-<script type="text/javascript" src="../../js/auto-complete.js?1762776145"></script>
+<script type="text/javascript" src="../../js/lunr.min.js?1762794927"></script>
+<script type="text/javascript" src="../../js/auto-complete.js?1762794927"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/\/vi";
     
 </script>
-<script type="text/javascript" src="../../js/search.js?1762776145"></script>
+<script type="text/javascript" src="../../js/search.js?1762794927"></script>
  
   </div>
 
@@ -413,52 +413,47 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
           <td>Được API Gateway kích hoạt. Hàm Lambda này thực thi một tác vụ nhanh, trong trường hợp này là để gọi và kích hoạt luồng quy trình (workflow) chính.</td>
       </tr>
       <tr>
-          <td>7/8</td>
+          <td>7</td>
           <td>EC2</td>
-          <td>Trên EC2 sẽ chạy n8n, một dịch vụ điều phối nhận lệnh từ Lambda (6) để bắt đầu và quản lý luồng quy trình xử lý dữ liệu và embedding service, dịch vụ con được n8n gọi, chuyên thực hiện tác vụ tạo vector embeddings (vector hóa dữ liệu).</td>
+          <td>Trên EC2 sẽ chạy n8n, một dịch vụ điều phối nhận lệnh từ API Gateway để bắt đầu và quản lý luồng quy trình xử lý dữ liệu và embedding service, dịch vụ con được n8n gọi, chuyên thực hiện tác vụ tạo vector embeddings (vector hóa dữ liệu). EC2 còn lại  sẽ được dùng để lưu trữ dữ cơ sở dữ liệu người dùng SQL</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>Amazon S3 Raw</td>
+          <td>Dịch vụ lưu trữ đối tượng.</td>
       </tr>
       <tr>
           <td>9</td>
-          <td>Amazon RDS</td>
-          <td>Dịch vụ cơ sở dữ liệu quan hệ (như PostgreSQL, MySQL). Dịch vụ Embedding (8) kết nối đến để lưu hoặc truy vấn dữ liệu có cấu trúc.</td>
+          <td>Amazon DynamoDB</td>
+          <td>Dịch vụ cơ sở dữ liệu NoSQL.</td>
       </tr>
       <tr>
           <td>10</td>
-          <td>Amazon DynamoDB</td>
-          <td>Dịch vụ cơ sở dữ liệu NoSQL. Dịch vụ Embedding (8) sử dụng để lưu trữ hoặc truy vấn dữ liệu (ví dụ: metadata) với tốc độ cao.</td>
+          <td>AWS Lambda (Invoke)</td>
+          <td>Dịch vụ n8n gọi một hàm Lambda khác để thực thi một logic cụ thể (trong sơ đồ này là để gọi ra bên ngoài).</td>
       </tr>
       <tr>
           <td>11</td>
-          <td>Amazon S3 Raw</td>
-          <td>Dịch vụ lưu trữ đối tượng. Dịch vụ Embedding (8) dùng để đọc hoặc lưu trữ các file dữ liệu thô (raw data).</td>
+          <td>External LLM APIs</td>
+          <td>Hàm Lambda gọi đến một API của bên thứ ba (ví dụ: OpenAI, Claude) để xử lý ngôn ngữ.</td>
       </tr>
       <tr>
           <td>12</td>
-          <td>AWS Lambda (Invoke)</td>
-          <td>Dịch vụ Embedding (8) gọi một hàm Lambda khác để thực thi một logic cụ thể (trong sơ đồ này là để gọi ra bên ngoài).</td>
+          <td>Amazon Secrets Manager</td>
+          <td>Máy chủ EC2 truy cập dịch vụ này để lấy các thông tin nhạy cảm (như API keys, mật khẩu database) một cách an toàn.</td>
       </tr>
       <tr>
           <td>13</td>
-          <td>External LLM APIs</td>
-          <td>Hàm Lambda (12) gọi đến một API của bên thứ ba (ví dụ: OpenAI, Claude) để xử lý ngôn ngữ.</td>
+          <td>Amazon CloudWatch</td>
+          <td>Dịch vụ giám sát và ghi log. Hàm Lambda (và có thể cả các dịch vụ khác) gửi log và metrics đến đây để theo dõi hoạt động.</td>
       </tr>
       <tr>
           <td>14</td>
-          <td>Amazon Secrets Manager</td>
-          <td>Máy chủ EC2 (7, 8) truy cập dịch vụ này để lấy các thông tin nhạy cảm (như API keys, mật khẩu database) một cách an toàn.</td>
-      </tr>
-      <tr>
-          <td>15</td>
-          <td>Amazon CloudWatch</td>
-          <td>Dịch vụ giám sát và ghi log. Hàm Lambda (6) (và có thể cả các dịch vụ khác) gửi log và metrics đến đây để theo dõi hoạt động.</td>
-      </tr>
-      <tr>
-          <td>16</td>
           <td>Gitlab</td>
           <td>Hệ thống CI/CD (Continuous Integration/Continuous Deployment) của Gitlab tự động kích hoạt khi có thay đổi code, build và deploy ứng dụng lên Amplify.</td>
       </tr>
       <tr>
-          <td>17</td>
+          <td>15</td>
           <td>Amazon S3 Web</td>
           <td>Amazon Amplify sử dụng một S3 bucket này để lưu trữ các file tĩnh (HTML, JS, CSS) của ứng dụng web sau khi build xong.</td>
       </tr>
@@ -600,7 +595,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
       <tr>
           <td>Backend Compute</td>
           <td>EC2</td>
-          <td>25.79</td>
+          <td>16.12</td>
           <td></td>
       </tr>
       <tr>
@@ -612,7 +607,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
       <tr>
           <td>Vector Database</td>
           <td>DynamoDB</td>
-          <td>8.30</td>
+          <td>4.02</td>
           <td></td>
       </tr>
       <tr>
@@ -630,7 +625,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
       <tr>
           <td>Virtual Cloud</td>
           <td>VPC</td>
-          <td>28.52</td>
+          <td>38.01</td>
           <td></td>
       </tr>
       <tr>
@@ -664,10 +659,10 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
           <td></td>
       </tr>
       <tr>
-          <td><strong>Tổng cộng</strong></td>
+          <td><strong>Total Estimate</strong></td>
           <td></td>
-          <td><strong>94.35</strong></td>
-          <td><strong>~306/13 tuần</strong></td>
+          <td><strong>78.73</strong></td>
+          <td><strong>~255/13 tuần</strong></td>
       </tr>
   </tbody>
 </table>
@@ -803,19 +798,19 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="../../js/clipboard.min.js?1762776145"></script>
-    <script src="../../js/perfect-scrollbar.min.js?1762776145"></script>
-    <script src="../../js/perfect-scrollbar.jquery.min.js?1762776145"></script>
-    <script src="../../js/jquery.sticky.js?1762776145"></script>
-    <script src="../../js/featherlight.min.js?1762776145"></script>
-    <script src="../../js/highlight.pack.js?1762776145"></script>
+    <script src="../../js/clipboard.min.js?1762794927"></script>
+    <script src="../../js/perfect-scrollbar.min.js?1762794927"></script>
+    <script src="../../js/perfect-scrollbar.jquery.min.js?1762794927"></script>
+    <script src="../../js/jquery.sticky.js?1762794927"></script>
+    <script src="../../js/featherlight.min.js?1762794927"></script>
+    <script src="../../js/highlight.pack.js?1762794927"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="../../js/modernizr.custom-3.6.0.js?1762776145"></script>
-    <script src="../../js/learn.js?1762776145"></script>
-    <script src="../../js/hugo-learn.js?1762776145"></script>
+    <script src="../../js/modernizr.custom-3.6.0.js?1762794927"></script>
+    <script src="../../js/learn.js?1762794927"></script>
+    <script src="../../js/hugo-learn.js?1762794927"></script>
 
-    <link href="../../mermaid/mermaid.css?1762776145" rel="stylesheet" />
-    <script src="../../mermaid/mermaid.js?1762776145"></script>
+    <link href="../../mermaid/mermaid.css?1762794927" rel="stylesheet" />
+    <script src="../../mermaid/mermaid.js?1762794927"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

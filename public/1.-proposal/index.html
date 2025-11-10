@@ -15,21 +15,21 @@
     <title>Proposal :: Internship Report</title>
 
     
-    <link href="../css/nucleus.css?1762776145" rel="stylesheet">
-    <link href="../css/fontawesome-all.min.css?1762776145" rel="stylesheet">
-    <link href="../css/hybrid.css?1762776145" rel="stylesheet">
-    <link href="../css/featherlight.min.css?1762776145" rel="stylesheet">
-    <link href="../css/perfect-scrollbar.min.css?1762776145" rel="stylesheet">
-    <link href="../css/auto-complete.css?1762776145" rel="stylesheet">
-    <link href="../css/atom-one-dark-reasonable.css?1762776145" rel="stylesheet">
-    <link href="../css/theme.css?1762776145" rel="stylesheet">
-    <link href="../css/hugo-theme.css?1762776145" rel="stylesheet">
+    <link href="../css/nucleus.css?1762794927" rel="stylesheet">
+    <link href="../css/fontawesome-all.min.css?1762794927" rel="stylesheet">
+    <link href="../css/hybrid.css?1762794927" rel="stylesheet">
+    <link href="../css/featherlight.min.css?1762794927" rel="stylesheet">
+    <link href="../css/perfect-scrollbar.min.css?1762794927" rel="stylesheet">
+    <link href="../css/auto-complete.css?1762794927" rel="stylesheet">
+    <link href="../css/atom-one-dark-reasonable.css?1762794927" rel="stylesheet">
+    <link href="../css/theme.css?1762794927" rel="stylesheet">
+    <link href="../css/hugo-theme.css?1762794927" rel="stylesheet">
     
-    <link href="../css/theme-workshop.css?1762776145" rel="stylesheet">
+    <link href="../css/theme-workshop.css?1762794927" rel="stylesheet">
     
     
 
-    <script src="../js/jquery-3.3.1.min.js?1762776145"></script>
+    <script src="../js/jquery-3.3.1.min.js?1762794927"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -88,14 +88,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="../js/lunr.min.js?1762776145"></script>
-<script type="text/javascript" src="../js/auto-complete.js?1762776145"></script>
+<script type="text/javascript" src="../js/lunr.min.js?1762794927"></script>
+<script type="text/javascript" src="../js/auto-complete.js?1762794927"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/localhost:1313\/";
     
 </script>
-<script type="text/javascript" src="../js/search.js?1762776145"></script>
+<script type="text/javascript" src="../js/search.js?1762794927"></script>
  
   </div>
 
@@ -383,7 +383,7 @@
       <tr>
           <td>1</td>
           <td>Amazon Route 53</td>
-          <td>Receives requests from the User and routes traffic. It points to both the Frontend (Amplify) and Backend (API Gateway).</td>
+          <td>Receives requests from Users and routes traffic. It points to both the Frontend (Amplify) and Backend (API Gateway).</td>
       </tr>
       <tr>
           <td>2</td>
@@ -393,72 +393,67 @@
       <tr>
           <td>3</td>
           <td>Amazon Amplify</td>
-          <td>(Frontend Flow) A service for hosting, building, and deploying the web application (frontend) for the user.</td>
+          <td>(Frontend Flow) A hosting, build, and deployment service for web (frontend) applications for users.</td>
       </tr>
       <tr>
           <td>4</td>
-          <td>Amazo API Gateway</td>
-          <td>(Backend Flow) Receives API requests from the user, acting as the &ldquo;gateway&rdquo; for all backend business logic.</td>
+          <td>Amazon API Gateway</td>
+          <td>(Backend Flow) Receives API requests from users and serves as the “gateway” for all backend business logic.</td>
       </tr>
       <tr>
           <td>5</td>
           <td>Amazon Cognito</td>
-          <td>Called by API Gateway to authenticate and authorize users, ensuring only valid users can access the API.</td>
+          <td>Called by the API Gateway to authenticate and authorize users, ensuring that only valid users can access the API.</td>
       </tr>
       <tr>
           <td>6</td>
           <td>AWS Lambda (Invoke)</td>
-          <td>Triggered by API Gateway. This Lambda function executes a quick task, in this case, to call and trigger the main workflow.</td>
+          <td>Triggered by the API Gateway. This Lambda function performs a quick task — in this case, it invokes and starts the main workflow.</td>
       </tr>
       <tr>
-          <td>7/8</td>
+          <td>7</td>
           <td>EC2</td>
-          <td>An orchestration service that receives a command from Lambda (6) to start and manage the data processing workflow and a microservice called by n8n, specializing in the task of creating vector embeddings.</td>
+          <td>Runs n8n — an orchestration service that receives commands from the API Gateway to initiate and manage data-processing workflows and the embedding service (a sub-service called by n8n that performs data vectorization). Another EC2 instance is used to host the SQL user database.</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>Amazon S3 Raw</td>
+          <td>Object storage service.</td>
       </tr>
       <tr>
           <td>9</td>
-          <td>Amazon RDS</td>
-          <td>A relational database service (like PostgreSQL, MySQL). The Embedding Service (8) connects to it to store or query structured data.</td>
+          <td>Amazon DynamoDB</td>
+          <td>NoSQL database service.</td>
       </tr>
       <tr>
           <td>10</td>
-          <td>Amazon DynamoDB</td>
-          <td>A NoSQL database service. The n8n (7) uses it to store or query data (e.g., metadata) at high speed.</td>
+          <td>AWS Lambda (Invoke)</td>
+          <td>The n8n service calls another Lambda function to execute specific logic (in this diagram, it performs an external API call).</td>
       </tr>
       <tr>
           <td>11</td>
-          <td>Amazon S3 Raw</td>
-          <td>An object storage service. The n8n (7) uses this to read or store raw data files.</td>
+          <td>External LLM APIs</td>
+          <td>The Lambda function calls a third-party API (e.g., OpenAI, Claude) for language processing.</td>
       </tr>
       <tr>
           <td>12</td>
-          <td>AWS Lambda (Invoke)</td>
-          <td>The n8n (7) calls another Lambda function to communicate with an outside AI API</td>
+          <td>Amazon Secrets Manager</td>
+          <td>The EC2 instance accesses this service to securely retrieve sensitive information (such as API keys or database passwords).</td>
       </tr>
       <tr>
           <td>13</td>
-          <td>External LLM APIs</td>
-          <td>The Lambda function (12) calls a third-party API (e.g., OpenAI, DeepSeek) for language processing.</td>
+          <td>Amazon CloudWatch</td>
+          <td>Monitoring and logging service. Lambda functions (and potentially other services) send logs and metrics here for operational tracking.</td>
       </tr>
       <tr>
           <td>14</td>
-          <td>Amazon Secrets Manager</td>
-          <td>The EC2 instances (7, 8) access this service to securely retrieve sensitive information (like API keys, database passwords).</td>
+          <td>GitLab</td>
+          <td>The GitLab CI/CD system automatically triggers upon code changes to build and deploy the application to Amplify.</td>
       </tr>
       <tr>
           <td>15</td>
-          <td>Amazon CloudWatch</td>
-          <td>A monitoring and logging service. The Lambda function (6) (and likely other services) sends logs and metrics here to track operations.</td>
-      </tr>
-      <tr>
-          <td>16</td>
-          <td>Gitlab</td>
-          <td>(CI/CD Flow) Gitlab&rsquo;s CI/CD system is automatically triggered by code changes, building and deploying the application to Amplify.</td>
-      </tr>
-      <tr>
-          <td>17</td>
           <td>Amazon S3 Web</td>
-          <td>Amazon Amplify uses this S3 bucket to store the static files (HTML, JS, CSS) of the web application after it&rsquo;s built.</td>
+          <td>Amazon Amplify uses this S3 bucket to store static web files (HTML, JS, CSS) after the application build process.</td>
       </tr>
   </tbody>
 </table>
@@ -598,7 +593,7 @@
       <tr>
           <td>Backend Compute</td>
           <td>EC2</td>
-          <td>25.79</td>
+          <td>16.12</td>
           <td></td>
       </tr>
       <tr>
@@ -610,7 +605,7 @@
       <tr>
           <td>Vector Database</td>
           <td>DynamoDB</td>
-          <td>8.30</td>
+          <td>4.02</td>
           <td></td>
       </tr>
       <tr>
@@ -628,7 +623,7 @@
       <tr>
           <td>Virtual Cloud</td>
           <td>VPC</td>
-          <td>28.52</td>
+          <td>38.01</td>
           <td></td>
       </tr>
       <tr>
@@ -664,8 +659,8 @@
       <tr>
           <td><strong>Total Estimate</strong></td>
           <td></td>
-          <td><strong>94.35</strong></td>
-          <td><strong>~306/13 weeks</strong></td>
+          <td><strong>78.73</strong></td>
+          <td><strong>~255/13 weeks</strong></td>
       </tr>
   </tbody>
 </table>
@@ -801,19 +796,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="../js/clipboard.min.js?1762776145"></script>
-    <script src="../js/perfect-scrollbar.min.js?1762776145"></script>
-    <script src="../js/perfect-scrollbar.jquery.min.js?1762776145"></script>
-    <script src="../js/jquery.sticky.js?1762776145"></script>
-    <script src="../js/featherlight.min.js?1762776145"></script>
-    <script src="../js/highlight.pack.js?1762776145"></script>
+    <script src="../js/clipboard.min.js?1762794927"></script>
+    <script src="../js/perfect-scrollbar.min.js?1762794927"></script>
+    <script src="../js/perfect-scrollbar.jquery.min.js?1762794927"></script>
+    <script src="../js/jquery.sticky.js?1762794927"></script>
+    <script src="../js/featherlight.min.js?1762794927"></script>
+    <script src="../js/highlight.pack.js?1762794927"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="../js/modernizr.custom-3.6.0.js?1762776145"></script>
-    <script src="../js/learn.js?1762776145"></script>
-    <script src="../js/hugo-learn.js?1762776145"></script>
+    <script src="../js/modernizr.custom-3.6.0.js?1762794927"></script>
+    <script src="../js/learn.js?1762794927"></script>
+    <script src="../js/hugo-learn.js?1762794927"></script>
 
-    <link href="../mermaid/mermaid.css?1762776145" rel="stylesheet" />
-    <script src="../mermaid/mermaid.js?1762776145"></script>
+    <link href="../mermaid/mermaid.css?1762794927" rel="stylesheet" />
+    <script src="../mermaid/mermaid.js?1762794927"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

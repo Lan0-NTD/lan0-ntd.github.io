@@ -61,23 +61,21 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 
 | No. | AWS Service | Function |
 |--------|--------------|----------|
-| 1 | Amazon Route 53 | Receives requests from the User and routes traffic. It points to both the Frontend (Amplify) and Backend (API Gateway). |
+| 1 | Amazon Route 53 | Receives requests from Users and routes traffic. It points to both the Frontend (Amplify) and Backend (API Gateway). |
 | 2 | Amazon WAF | (Frontend Flow) A web application firewall service that filters malicious requests before they reach the frontend. |
-| 3 | Amazon Amplify | (Frontend Flow) A service for hosting, building, and deploying the web application (frontend) for the user. |
-| 4 | Amazo API Gateway | (Backend Flow) Receives API requests from the user, acting as the "gateway" for all backend business logic. |
-| 5 | Amazon Cognito | Called by API Gateway to authenticate and authorize users, ensuring only valid users can access the API. |
-| 6 | AWS Lambda (Invoke) | Triggered by API Gateway. This Lambda function executes a quick task, in this case, to call and trigger the main workflow. |
-| 7/8 | EC2 | An orchestration service that receives a command from Lambda (6) to start and manage the data processing workflow and a microservice called by n8n, specializing in the task of creating vector embeddings. |
-| 9 | Amazon RDS | A relational database service (like PostgreSQL, MySQL). The Embedding Service (8) connects to it to store or query structured data. |
-| 10 | Amazon DynamoDB | A NoSQL database service. The n8n (7) uses it to store or query data (e.g., metadata) at high speed. |
-| 11 | Amazon S3 Raw | An object storage service. The n8n (7) uses this to read or store raw data files. |
-| 12 | AWS Lambda (Invoke) | The n8n (7) calls another Lambda function to communicate with an outside AI API|
-| 13 | External LLM APIs | The Lambda function (12) calls a third-party API (e.g., OpenAI, DeepSeek) for language processing. |
-| 14 | Amazon Secrets Manager | The EC2 instances (7, 8) access this service to securely retrieve sensitive information (like API keys, database passwords). |
-| 15 | Amazon CloudWatch | A monitoring and logging service. The Lambda function (6) (and likely other services) sends logs and metrics here to track operations. |
-| 16 | Gitlab | (CI/CD Flow) Gitlab's CI/CD system is automatically triggered by code changes, building and deploying the application to Amplify. |
-| 17 | Amazon S3 Web | Amazon Amplify uses this S3 bucket to store the static files (HTML, JS, CSS) of the web application after it's built. |
-
+| 3 | Amazon Amplify | (Frontend Flow) A hosting, build, and deployment service for web (frontend) applications for users. |
+| 4 | Amazon API Gateway | (Backend Flow) Receives API requests from users and serves as the “gateway” for all backend business logic. |
+| 5 | Amazon Cognito | Called by the API Gateway to authenticate and authorize users, ensuring that only valid users can access the API. |
+| 6 | AWS Lambda (Invoke) | Triggered by the API Gateway. This Lambda function performs a quick task — in this case, it invokes and starts the main workflow. |
+| 7 | EC2 | Runs n8n — an orchestration service that receives commands from the API Gateway to initiate and manage data-processing workflows and the embedding service (a sub-service called by n8n that performs data vectorization). Another EC2 instance is used to host the SQL user database. |
+| 8 | Amazon S3 Raw | Object storage service. |
+| 9 | Amazon DynamoDB | NoSQL database service. |
+| 10 | AWS Lambda (Invoke) | The n8n service calls another Lambda function to execute specific logic (in this diagram, it performs an external API call). |
+| 11 | External LLM APIs | The Lambda function calls a third-party API (e.g., OpenAI, Claude) for language processing. |
+| 12 | Amazon Secrets Manager | The EC2 instance accesses this service to securely retrieve sensitive information (such as API keys or database passwords). |
+| 13 | Amazon CloudWatch | Monitoring and logging service. Lambda functions (and potentially other services) send logs and metrics here for operational tracking. |
+| 14 | GitLab | The GitLab CI/CD system automatically triggers upon code changes to build and deploy the application to Amplify. |
+| 15 | Amazon S3 Web | Amazon Amplify uses this S3 bucket to store static web files (HTML, JS, CSS) after the application build process. |
 ### Component Design
 
 - Frontend (Amplify + S3) – UI for contract upload, risk visualization, and report generation.  
@@ -150,18 +148,18 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 |------------|-------------|--------------------|--------|
 | Frontend Hosting | Amplify | 3.68 |  |
 | DNS/Routing | Route 53 | 2.04 |  |
-| Backend Compute | EC2 | 25.79 |  |
+| Backend Compute | EC2 | 16.12 |  |
 | User Database | RDS for PostgreSQL | 8.73 |  |
-| Vector Database | DynamoDB | 8.30 |  |
+| Vector Database | DynamoDB | 4.02 |  |
 | Storage | S3 | 1.93 |  |
 | Request Routing | API Gateway | 1.29 |  |
-| Virtual Cloud | VPC | 28.52 |  |
+| Virtual Cloud | VPC | 38.01 |  |
 | AI API Usage | OpenAI | 5.00 | Non-AWS |
 | User Authentication | Cognito | 1.00 |  |
 | Security | Secrets Manager | 0.94 |  |
 | Security | WAF | 6.60 |  |
 | Monitoring | CloudWatch | 0.53 |  |
-| **Total Estimate** |  | **94.35** | **~306/13 weeks** |
+| **Total Estimate** |  | **78.73** | **~255/13 weeks** |
 
 ### Cost Optimization
 

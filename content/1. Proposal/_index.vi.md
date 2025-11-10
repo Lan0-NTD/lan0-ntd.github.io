@@ -65,16 +65,15 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 | 4 | Amazo API Gateway | (Luồng Backend) Tiếp nhận các yêu cầu API từ người dùng, đóng vai trò là "cổng" cho mọi logic nghiệp vụ phía sau. |
 | 5 | Amazon Cognito | Được API Gateway gọi để xác thực và cấp quyền cho người dùng, đảm bảo chỉ người dùng hợp lệ mới được truy cập API. |
 | 6 | AWS Lambda (Invoke) | Được API Gateway kích hoạt. Hàm Lambda này thực thi một tác vụ nhanh, trong trường hợp này là để gọi và kích hoạt luồng quy trình (workflow) chính. |
-| 7/8 | EC2 | Trên EC2 sẽ chạy n8n, một dịch vụ điều phối nhận lệnh từ Lambda (6) để bắt đầu và quản lý luồng quy trình xử lý dữ liệu và embedding service, dịch vụ con được n8n gọi, chuyên thực hiện tác vụ tạo vector embeddings (vector hóa dữ liệu). |
-| 9 | Amazon RDS | Dịch vụ cơ sở dữ liệu quan hệ (như PostgreSQL, MySQL). Dịch vụ Embedding (8) kết nối đến để lưu hoặc truy vấn dữ liệu có cấu trúc. |
-| 10 | Amazon DynamoDB | Dịch vụ cơ sở dữ liệu NoSQL. Dịch vụ Embedding (8) sử dụng để lưu trữ hoặc truy vấn dữ liệu (ví dụ: metadata) với tốc độ cao. |
-| 11 | Amazon S3 Raw | Dịch vụ lưu trữ đối tượng. Dịch vụ Embedding (8) dùng để đọc hoặc lưu trữ các file dữ liệu thô (raw data). |
-| 12 | AWS Lambda (Invoke) | Dịch vụ Embedding (8) gọi một hàm Lambda khác để thực thi một logic cụ thể (trong sơ đồ này là để gọi ra bên ngoài). |
-| 13 | External LLM APIs | Hàm Lambda (12) gọi đến một API của bên thứ ba (ví dụ: OpenAI, Claude) để xử lý ngôn ngữ. |
-| 14 | Amazon Secrets Manager | Máy chủ EC2 (7, 8) truy cập dịch vụ này để lấy các thông tin nhạy cảm (như API keys, mật khẩu database) một cách an toàn. |
-| 15 | Amazon CloudWatch | Dịch vụ giám sát và ghi log. Hàm Lambda (6) (và có thể cả các dịch vụ khác) gửi log và metrics đến đây để theo dõi hoạt động. |
-| 16 | Gitlab | Hệ thống CI/CD (Continuous Integration/Continuous Deployment) của Gitlab tự động kích hoạt khi có thay đổi code, build và deploy ứng dụng lên Amplify. |
-| 17 | Amazon S3 Web | Amazon Amplify sử dụng một S3 bucket này để lưu trữ các file tĩnh (HTML, JS, CSS) của ứng dụng web sau khi build xong. |
+| 7 | EC2 | Trên EC2 sẽ chạy n8n, một dịch vụ điều phối nhận lệnh từ API Gateway để bắt đầu và quản lý luồng quy trình xử lý dữ liệu và embedding service, dịch vụ con được n8n gọi, chuyên thực hiện tác vụ tạo vector embeddings (vector hóa dữ liệu). EC2 còn lại  sẽ được dùng để lưu trữ dữ cơ sở dữ liệu người dùng SQL  |
+| 8 | Amazon S3 Raw | Dịch vụ lưu trữ đối tượng. |
+| 9 | Amazon DynamoDB | Dịch vụ cơ sở dữ liệu NoSQL. |
+| 10 | AWS Lambda (Invoke) | Dịch vụ n8n gọi một hàm Lambda khác để thực thi một logic cụ thể (trong sơ đồ này là để gọi ra bên ngoài). |
+| 11 | External LLM APIs | Hàm Lambda gọi đến một API của bên thứ ba (ví dụ: OpenAI, Claude) để xử lý ngôn ngữ. |
+| 12 | Amazon Secrets Manager | Máy chủ EC2 truy cập dịch vụ này để lấy các thông tin nhạy cảm (như API keys, mật khẩu database) một cách an toàn. |
+| 13 | Amazon CloudWatch | Dịch vụ giám sát và ghi log. Hàm Lambda (và có thể cả các dịch vụ khác) gửi log và metrics đến đây để theo dõi hoạt động. |
+| 14 | Gitlab | Hệ thống CI/CD (Continuous Integration/Continuous Deployment) của Gitlab tự động kích hoạt khi có thay đổi code, build và deploy ứng dụng lên Amplify. |
+| 15 | Amazon S3 Web | Amazon Amplify sử dụng một S3 bucket này để lưu trữ các file tĩnh (HTML, JS, CSS) của ứng dụng web sau khi build xong. |
 
 ### Thiết kế thành phần
 
@@ -148,18 +147,18 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 |------------|-------------|--------------------|----------|
 | Frontend Hosting | Amplify | 3.68 |  |
 | DNS/Routing | Route 53 | 2.04 |  |
-| Backend Compute | EC2 | 25.79 |  |
+| Backend Compute | EC2 | 16.12 |  |
 | User Database | RDS for PostgreSQL | 8.73 |  |
-| Vector Database | DynamoDB | 8.30 |  |
+| Vector Database | DynamoDB | 4.02 |  |
 | Storage | S3 | 1.93 |  |
 | Request Routing | API Gateway | 1.29 |  |
-| Virtual Cloud | VPC | 28.52 |  |
+| Virtual Cloud | VPC | 38.01 |  |
 | AI API Usage | OpenAI | 5.00 | Non-AWS |
 | User Authentication | Cognito | 1.00 |  |
 | Security | Secrets Manager | 0.94 |  |
 | Security | WAF | 6.60 |  |
 | Monitoring | CloudWatch | 0.53 |  |
-| **Tổng cộng** |  | **94.35** | **~306/13 tuần** |
+| **Total Estimate** |  | **78.73** | **~255/13 tuần** |
 
 ### Tối ưu chi phí
 
