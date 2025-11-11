@@ -16,7 +16,7 @@ Automated Contract Analysis, Risk Detection & Suggestion System
 
 This document presents a SaaS solution that leverages AI models to assist small and medium-sized enterprises (SMEs) and individual users in reading, analyzing, and automatically generating contracts. The system uses OCR to extract clauses from user-submitted images or documents, after which the AI model detects potential risks and suggests more favorable modifications for the user.
 
-The solution is deployed on the AWS platform using EC2, n8n, DynamoDB, Lambda, and Amplify, ensuring comprehensive security, modularity, and scalability.
+The solution is deployed on the AWS platform using EC2, n8n, DynamoDB and Amplify, ensuring comprehensive security, modularity, and scalability.
 
 ---
 
@@ -64,15 +64,13 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 | 3 | Amazon Amplify | (Frontend Flow) A hosting, build, and deployment service for web (frontend) applications for users. |
 | 4 | Amazon API Gateway | (Backend Flow) Receives API requests from users and serves as the “gateway” for all backend business logic. |
 | 5 | Amazon Cognito | Called by the API Gateway to authenticate and authorize users, ensuring that only valid users can access the API. |
-| 6 | AWS Lambda (Invoke) | Triggered by the API Gateway. This Lambda function performs a quick task — in this case, it invokes and starts the main workflow. |
+| 6 | VPC Endpoint | Activated by the API Gateway. This endpoint is used by the API Gateway to communicate with the EC2 instance hosting n8n. |
 | 7 | EC2 | Runs n8n — an orchestration service that receives commands from the API Gateway to initiate and manage data-processing workflows and the embedding service (a sub-service called by n8n that performs data vectorization). Another EC2 instance is used to host the SQL user database. |
 | 8 | Amazon S3 Raw | Object storage service. |
 | 9 | Amazon DynamoDB | NoSQL database service. |
 | 10 | AWS Lambda (Invoke) | The n8n service calls another Lambda function to execute specific logic (in this diagram, it performs an external API call). |
-| 11 | External LLM APIs | The Lambda function calls a third-party API (e.g., OpenAI, Claude) for language processing. |
 | 12 | Amazon Secrets Manager | The EC2 instance accesses this service to securely retrieve sensitive information (such as API keys or database passwords). |
 | 13 | Amazon CloudWatch | Monitoring and logging service. Lambda functions (and potentially other services) send logs and metrics here for operational tracking. |
-| 14 | GitLab | The GitLab CI/CD system automatically triggers upon code changes to build and deploy the application to Amplify. |
 | 15 | Amazon S3 Web | Amazon Amplify uses this S3 bucket to store static web files (HTML, JS, CSS) after the application build process. |
 ### Component Design
 
@@ -99,7 +97,7 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 **Cloud Integration**
 
 - Amplify connected to GitLab repository for CI/CD pipeline.  
-- Configure Aurora (PostgreSQL) and DynamoDB for production.  
+- Configure DynamoDB for production.  
 - Integrate API Gateway + Cognito.  
 - Enable CloudWatch logging and WAF security layer.
 
@@ -163,7 +161,7 @@ Most components use serverless and managed AWS services, minimizing idle resourc
 
 Compute: EC2 uses Graviton t4g.medium with limited runtime (10h/day).
 
-Database: EC2 t4g.micro and DynamoDB are right-sized for dev/test load, avoiding over-provisioning.
+Database: EC2 t4g.micro is suitable for hosting a userdatabase and DynamoDB are right-sized for dev/test load, avoiding over-provisioning.
 
 Storage: Separate S3 buckets for raw data and web hosting keep data organized and cost-controlled.
 

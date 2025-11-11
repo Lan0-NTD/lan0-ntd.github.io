@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.150.0">
@@ -15,21 +15,21 @@
     <title>Proposal :: Internship Report</title>
 
     
-    <link href="../css/nucleus.css?1762796858" rel="stylesheet">
-    <link href="../css/fontawesome-all.min.css?1762796858" rel="stylesheet">
-    <link href="../css/hybrid.css?1762796858" rel="stylesheet">
-    <link href="../css/featherlight.min.css?1762796858" rel="stylesheet">
-    <link href="../css/perfect-scrollbar.min.css?1762796858" rel="stylesheet">
-    <link href="../css/auto-complete.css?1762796858" rel="stylesheet">
-    <link href="../css/atom-one-dark-reasonable.css?1762796858" rel="stylesheet">
-    <link href="../css/theme.css?1762796858" rel="stylesheet">
-    <link href="../css/hugo-theme.css?1762796858" rel="stylesheet">
+    <link href="../css/nucleus.css?1762832373" rel="stylesheet">
+    <link href="../css/fontawesome-all.min.css?1762832373" rel="stylesheet">
+    <link href="../css/hybrid.css?1762832373" rel="stylesheet">
+    <link href="../css/featherlight.min.css?1762832373" rel="stylesheet">
+    <link href="../css/perfect-scrollbar.min.css?1762832373" rel="stylesheet">
+    <link href="../css/auto-complete.css?1762832373" rel="stylesheet">
+    <link href="../css/atom-one-dark-reasonable.css?1762832373" rel="stylesheet">
+    <link href="../css/theme.css?1762832373" rel="stylesheet">
+    <link href="../css/hugo-theme.css?1762832373" rel="stylesheet">
     
-    <link href="../css/theme-workshop.css?1762796858" rel="stylesheet">
+    <link href="../css/theme-workshop.css?1762832373" rel="stylesheet">
     
     
 
-    <script src="../js/jquery-3.3.1.min.js?1762796858"></script>
+    <script src="../js/jquery-3.3.1.min.js?1762832373"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -88,14 +88,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="../js/lunr.min.js?1762796858"></script>
-<script type="text/javascript" src="../js/auto-complete.js?1762796858"></script>
+<script type="text/javascript" src="../js/lunr.min.js?1762832373"></script>
+<script type="text/javascript" src="../js/auto-complete.js?1762832373"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:1313\/";
+        var baseurl = "\/";
     
 </script>
-<script type="text/javascript" src="../js/search.js?1762796858"></script>
+<script type="text/javascript" src="../js/search.js?1762832373"></script>
  
   </div>
 
@@ -149,7 +149,7 @@
                        
                 <option
                   id="en"
-                  value="//localhost:1313/1.-proposal/"
+                  value="/1.-proposal/"
                   selected
                 >
                   English
@@ -157,7 +157,7 @@
                             
                 <option
                   id="vi"
-                  value="//localhost:1313/vi/1.-proposal/"
+                  value="/vi/1.-proposal/"
                 >
                   Tiếng Việt
                 </option>
@@ -326,7 +326,7 @@
 <hr>
 <h2 id="1-summary">1. Summary</h2>
 <p>This document presents a SaaS solution that leverages AI models to assist small and medium-sized enterprises (SMEs) and individual users in reading, analyzing, and automatically generating contracts. The system uses OCR to extract clauses from user-submitted images or documents, after which the AI model detects potential risks and suggests more favorable modifications for the user.</p>
-<p>The solution is deployed on the AWS platform using EC2, n8n, DynamoDB, Lambda, and Amplify, ensuring comprehensive security, modularity, and scalability.</p>
+<p>The solution is deployed on the AWS platform using EC2, n8n, DynamoDB and Amplify, ensuring comprehensive security, modularity, and scalability.</p>
 <hr>
 <h2 id="2-problem-statement">2. Problem Statement</h2>
 <h3 id="whats-the-problem">What’s the Problem?</h3>
@@ -411,8 +411,8 @@
       </tr>
       <tr>
           <td>6</td>
-          <td>AWS Lambda (Invoke)</td>
-          <td>Triggered by the API Gateway. This Lambda function performs a quick task — in this case, it invokes and starts the main workflow.</td>
+          <td>VPC Endpoint</td>
+          <td>Activated by the API Gateway. This endpoint is used by the API Gateway to communicate with the EC2 instance hosting n8n.</td>
       </tr>
       <tr>
           <td>7</td>
@@ -435,11 +435,6 @@
           <td>The n8n service calls another Lambda function to execute specific logic (in this diagram, it performs an external API call).</td>
       </tr>
       <tr>
-          <td>11</td>
-          <td>External LLM APIs</td>
-          <td>The Lambda function calls a third-party API (e.g., OpenAI, Claude) for language processing.</td>
-      </tr>
-      <tr>
           <td>12</td>
           <td>Amazon Secrets Manager</td>
           <td>The EC2 instance accesses this service to securely retrieve sensitive information (such as API keys or database passwords).</td>
@@ -448,11 +443,6 @@
           <td>13</td>
           <td>Amazon CloudWatch</td>
           <td>Monitoring and logging service. Lambda functions (and potentially other services) send logs and metrics here for operational tracking.</td>
-      </tr>
-      <tr>
-          <td>14</td>
-          <td>GitLab</td>
-          <td>The GitLab CI/CD system automatically triggers upon code changes to build and deploy the application to Amplify.</td>
       </tr>
       <tr>
           <td>15</td>
@@ -483,7 +473,7 @@
 <p><strong>Cloud Integration</strong></p>
 <ul>
 <li>Amplify connected to GitLab repository for CI/CD pipeline.</li>
-<li>Configure Aurora (PostgreSQL) and DynamoDB for production.</li>
+<li>Configure DynamoDB for production.</li>
 <li>Integrate API Gateway + Cognito.</li>
 <li>Enable CloudWatch logging and WAF security layer.</li>
 </ul>
@@ -664,7 +654,7 @@
 <h3 id="cost-optimization">Cost Optimization</h3>
 <p>Most components use serverless and managed AWS services, minimizing idle resources and operational overhead.</p>
 <p>Compute: EC2 uses Graviton t4g.medium with limited runtime (10h/day).</p>
-<p>Database: EC2 t4g.micro and DynamoDB are right-sized for dev/test load, avoiding over-provisioning.</p>
+<p>Database: EC2 t4g.micro is suitable for hosting a userdatabase and DynamoDB are right-sized for dev/test load, avoiding over-provisioning.</p>
 <p>Storage: Separate S3 buckets for raw data and web hosting keep data organized and cost-controlled.</p>
 <p>Integration &amp; Security: Use of HTTP API Gateway, single WAF rule, and one Route 53 hosted zone reduces costs.</p>
 <p>Overall monthly cost is around 79 USD, reflecting a well-optimized deployment.</p>
@@ -793,19 +783,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="../js/clipboard.min.js?1762796858"></script>
-    <script src="../js/perfect-scrollbar.min.js?1762796858"></script>
-    <script src="../js/perfect-scrollbar.jquery.min.js?1762796858"></script>
-    <script src="../js/jquery.sticky.js?1762796858"></script>
-    <script src="../js/featherlight.min.js?1762796858"></script>
-    <script src="../js/highlight.pack.js?1762796858"></script>
+    <script src="../js/clipboard.min.js?1762832373"></script>
+    <script src="../js/perfect-scrollbar.min.js?1762832373"></script>
+    <script src="../js/perfect-scrollbar.jquery.min.js?1762832373"></script>
+    <script src="../js/jquery.sticky.js?1762832373"></script>
+    <script src="../js/featherlight.min.js?1762832373"></script>
+    <script src="../js/highlight.pack.js?1762832373"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="../js/modernizr.custom-3.6.0.js?1762796858"></script>
-    <script src="../js/learn.js?1762796858"></script>
-    <script src="../js/hugo-learn.js?1762796858"></script>
+    <script src="../js/modernizr.custom-3.6.0.js?1762832373"></script>
+    <script src="../js/learn.js?1762832373"></script>
+    <script src="../js/hugo-learn.js?1762832373"></script>
 
-    <link href="../mermaid/mermaid.css?1762796858" rel="stylesheet" />
-    <script src="../mermaid/mermaid.js?1762796858"></script>
+    <link href="../mermaid/mermaid.css?1762832373" rel="stylesheet" />
+    <script src="../mermaid/mermaid.js?1762832373"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

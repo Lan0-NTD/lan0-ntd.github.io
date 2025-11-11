@@ -69,10 +69,8 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 | 8 | Amazon S3 Raw | Dịch vụ lưu trữ đối tượng. |
 | 9 | Amazon DynamoDB | Dịch vụ cơ sở dữ liệu NoSQL. |
 | 10 | AWS Lambda (Invoke) | Dịch vụ n8n gọi một hàm Lambda khác để thực thi một logic cụ thể (trong sơ đồ này là để gọi ra bên ngoài). |
-| 11 | External LLM APIs | Hàm Lambda gọi đến một API của bên thứ ba (ví dụ: OpenAI, Claude) để xử lý ngôn ngữ. |
 | 12 | Amazon Secrets Manager | Máy chủ EC2 truy cập dịch vụ này để lấy các thông tin nhạy cảm (như API keys, mật khẩu database) một cách an toàn. |
 | 13 | Amazon CloudWatch | Dịch vụ giám sát và ghi log. Hàm Lambda (và có thể cả các dịch vụ khác) gửi log và metrics đến đây để theo dõi hoạt động. |
-| 14 | Gitlab | Hệ thống CI/CD (Continuous Integration/Continuous Deployment) của Gitlab tự động kích hoạt khi có thay đổi code, build và deploy ứng dụng lên Amplify. |
 | 15 | Amazon S3 Web | Amazon Amplify sử dụng một S3 bucket này để lưu trữ các file tĩnh (HTML, JS, CSS) của ứng dụng web sau khi build xong. |
 
 ### Thiết kế thành phần
@@ -100,7 +98,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 **Cloud Integration:**
 
 - Kết nối Amplify với GitLab cho pipeline CI/CD.  
-- Cấu hình Aurora (PostgreSQL) và DynamoDB cho production.  
+- Cấu hình DynamoDB cho production.  
 - Tích hợp API Gateway + Cognito.  
 - Kích hoạt logging CloudWatch và lớp bảo mật WAF.
 
@@ -164,7 +162,7 @@ Phần lớn thành phần sử dụng dịch vụ serverless và managed của 
 
 Compute: EC2 dùng Graviton t4g.medium chạy giới hạn 10h/ngày.
 
-Database: EC2 t4g.micro và DynamoDB được cấu hình vừa đủ cho tải dev/test, tránh dư thừa tài nguyên.
+Database: EC2 t4g.micro phù hợp để triển khai cơ sở dữ liệu người dùng và DynamoDB được cấu hình vừa đủ cho tải dev/test, tránh dư thừa tài nguyên.
 
 Storage: Hai bucket S3 tách biệt cho dữ liệu gốc và web giúp tổ chức dữ liệu hợp lý và kiểm soát chi phí.
 

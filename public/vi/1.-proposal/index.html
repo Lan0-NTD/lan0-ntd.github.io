@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi" class="js csstransforms3d">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.150.0">
@@ -15,21 +15,21 @@
     <title>Proposal :: Báo cáo thực tập</title>
 
     
-    <link href="../../css/nucleus.css?1762796858" rel="stylesheet">
-    <link href="../../css/fontawesome-all.min.css?1762796858" rel="stylesheet">
-    <link href="../../css/hybrid.css?1762796858" rel="stylesheet">
-    <link href="../../css/featherlight.min.css?1762796858" rel="stylesheet">
-    <link href="../../css/perfect-scrollbar.min.css?1762796858" rel="stylesheet">
-    <link href="../../css/auto-complete.css?1762796858" rel="stylesheet">
-    <link href="../../css/atom-one-dark-reasonable.css?1762796858" rel="stylesheet">
-    <link href="../../css/theme.css?1762796858" rel="stylesheet">
-    <link href="../../css/hugo-theme.css?1762796858" rel="stylesheet">
+    <link href="../../css/nucleus.css?1762832373" rel="stylesheet">
+    <link href="../../css/fontawesome-all.min.css?1762832373" rel="stylesheet">
+    <link href="../../css/hybrid.css?1762832373" rel="stylesheet">
+    <link href="../../css/featherlight.min.css?1762832373" rel="stylesheet">
+    <link href="../../css/perfect-scrollbar.min.css?1762832373" rel="stylesheet">
+    <link href="../../css/auto-complete.css?1762832373" rel="stylesheet">
+    <link href="../../css/atom-one-dark-reasonable.css?1762832373" rel="stylesheet">
+    <link href="../../css/theme.css?1762832373" rel="stylesheet">
+    <link href="../../css/hugo-theme.css?1762832373" rel="stylesheet">
     
-    <link href="../../css/theme-workshop.css?1762796858" rel="stylesheet">
+    <link href="../../css/theme-workshop.css?1762832373" rel="stylesheet">
     
     
 
-    <script src="../../js/jquery-3.3.1.min.js?1762796858"></script>
+    <script src="../../js/jquery-3.3.1.min.js?1762832373"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -88,14 +88,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="../../js/lunr.min.js?1762796858"></script>
-<script type="text/javascript" src="../../js/auto-complete.js?1762796858"></script>
+<script type="text/javascript" src="../../js/lunr.min.js?1762832373"></script>
+<script type="text/javascript" src="../../js/auto-complete.js?1762832373"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/\/localhost:1313\/\/vi";
+        var baseurl = "\/\/vi";
     
 </script>
-<script type="text/javascript" src="../../js/search.js?1762796858"></script>
+<script type="text/javascript" src="../../js/search.js?1762832373"></script>
  
   </div>
 
@@ -149,14 +149,14 @@
                        
                 <option
                   id="en"
-                  value="//localhost:1313/1.-proposal/"
+                  value="/1.-proposal/"
                 >
                   English
                 </option>
                             
                 <option
                   id="vi"
-                  value="//localhost:1313/vi/1.-proposal/"
+                  value="/vi/1.-proposal/"
                   selected
                 >
                   Tiếng Việt
@@ -437,11 +437,6 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
           <td>Dịch vụ n8n gọi một hàm Lambda khác để thực thi một logic cụ thể (trong sơ đồ này là để gọi ra bên ngoài).</td>
       </tr>
       <tr>
-          <td>11</td>
-          <td>External LLM APIs</td>
-          <td>Hàm Lambda gọi đến một API của bên thứ ba (ví dụ: OpenAI, Claude) để xử lý ngôn ngữ.</td>
-      </tr>
-      <tr>
           <td>12</td>
           <td>Amazon Secrets Manager</td>
           <td>Máy chủ EC2 truy cập dịch vụ này để lấy các thông tin nhạy cảm (như API keys, mật khẩu database) một cách an toàn.</td>
@@ -450,11 +445,6 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
           <td>13</td>
           <td>Amazon CloudWatch</td>
           <td>Dịch vụ giám sát và ghi log. Hàm Lambda (và có thể cả các dịch vụ khác) gửi log và metrics đến đây để theo dõi hoạt động.</td>
-      </tr>
-      <tr>
-          <td>14</td>
-          <td>Gitlab</td>
-          <td>Hệ thống CI/CD (Continuous Integration/Continuous Deployment) của Gitlab tự động kích hoạt khi có thay đổi code, build và deploy ứng dụng lên Amplify.</td>
       </tr>
       <tr>
           <td>15</td>
@@ -485,7 +475,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 <p><strong>Cloud Integration:</strong></p>
 <ul>
 <li>Kết nối Amplify với GitLab cho pipeline CI/CD.</li>
-<li>Cấu hình Aurora (PostgreSQL) và DynamoDB cho production.</li>
+<li>Cấu hình DynamoDB cho production.</li>
 <li>Tích hợp API Gateway + Cognito.</li>
 <li>Kích hoạt logging CloudWatch và lớp bảo mật WAF.</li>
 </ul>
@@ -666,7 +656,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 <h3 id="tối-ưu-chi-phí">Tối ưu chi phí</h3>
 <p>Phần lớn thành phần sử dụng dịch vụ serverless và managed của AWS, giảm thiểu tài nguyên nhàn rỗi và chi phí vận hành.</p>
 <p>Compute: EC2 dùng Graviton t4g.medium chạy giới hạn 10h/ngày.</p>
-<p>Database: EC2 t4g.micro và DynamoDB được cấu hình vừa đủ cho tải dev/test, tránh dư thừa tài nguyên.</p>
+<p>Database: EC2 t4g.micro phù hợp để triển khai cơ sở dữ liệu người dùng và DynamoDB được cấu hình vừa đủ cho tải dev/test, tránh dư thừa tài nguyên.</p>
 <p>Storage: Hai bucket S3 tách biệt cho dữ liệu gốc và web giúp tổ chức dữ liệu hợp lý và kiểm soát chi phí.</p>
 <p>Tích hợp &amp; bảo mật: Dùng HTTP API Gateway, một WAF rule, và một Route 53 zone để giảm chi phí định kỳ.</p>
 <p>Tổng chi phí khoảng 79 USD/tháng, thể hiện một hệ thống đã được tối ưu tốt.</p>
@@ -795,19 +785,19 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="../../js/clipboard.min.js?1762796858"></script>
-    <script src="../../js/perfect-scrollbar.min.js?1762796858"></script>
-    <script src="../../js/perfect-scrollbar.jquery.min.js?1762796858"></script>
-    <script src="../../js/jquery.sticky.js?1762796858"></script>
-    <script src="../../js/featherlight.min.js?1762796858"></script>
-    <script src="../../js/highlight.pack.js?1762796858"></script>
+    <script src="../../js/clipboard.min.js?1762832373"></script>
+    <script src="../../js/perfect-scrollbar.min.js?1762832373"></script>
+    <script src="../../js/perfect-scrollbar.jquery.min.js?1762832373"></script>
+    <script src="../../js/jquery.sticky.js?1762832373"></script>
+    <script src="../../js/featherlight.min.js?1762832373"></script>
+    <script src="../../js/highlight.pack.js?1762832373"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="../../js/modernizr.custom-3.6.0.js?1762796858"></script>
-    <script src="../../js/learn.js?1762796858"></script>
-    <script src="../../js/hugo-learn.js?1762796858"></script>
+    <script src="../../js/modernizr.custom-3.6.0.js?1762832373"></script>
+    <script src="../../js/learn.js?1762832373"></script>
+    <script src="../../js/hugo-learn.js?1762832373"></script>
 
-    <link href="../../mermaid/mermaid.css?1762796858" rel="stylesheet" />
-    <script src="../../mermaid/mermaid.js?1762796858"></script>
+    <link href="../../mermaid/mermaid.css?1762832373" rel="stylesheet" />
+    <script src="../../mermaid/mermaid.js?1762832373"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
