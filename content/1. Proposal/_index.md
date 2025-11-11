@@ -97,7 +97,7 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 **Cloud Integration**
 
 - Amplify connected to GitLab repository for CI/CD pipeline.  
-- Configure DynamoDB for production.  
+- Configure DynamoDB and SQL.  
 - Integrate API Gateway + Cognito.  
 - Enable CloudWatch logging and WAF security layer.
 
@@ -153,13 +153,13 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 | Security | Secrets Manager | 0.94 |  |
 | Security | WAF | 6.60 |  |
 | Monitoring | CloudWatch | 0.53 |  |
-| **Total Estimate** |  | **78.73** | **~255/13 weeks** |
+| **Total Estimate** |  | **81.16** | **~263/13 weeks** |
 
 ### Cost Optimization
 
 Most components use serverless and managed AWS services, minimizing idle resources and operational overhead.
 
-Compute: EC2 uses Graviton t4g.medium with limited runtime (10h/day).
+Compute: EC2 uses Graviton t4g.medium with limited runtime (10h/day) for dev/test.
 
 Database: EC2 t4g.micro is suitable for hosting a userdatabase and DynamoDB are right-sized for dev/test load, avoiding over-provisioning.
 
@@ -167,7 +167,7 @@ Storage: Separate S3 buckets for raw data and web hosting keep data organized an
 
 Integration & Security: Use of HTTP API Gateway, single WAF rule, and one Route 53 hosted zone reduces costs.
 
-Overall monthly cost is around 79 USD, reflecting a well-optimized deployment.
+Overall monthly cost is around 81 USD, reflecting a well-optimized deployment.
 
 ---
 

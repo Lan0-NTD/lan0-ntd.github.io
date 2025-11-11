@@ -15,21 +15,21 @@
     <title>Proposal :: Báo cáo thực tập</title>
 
     
-    <link href="../../css/nucleus.css?1762832373" rel="stylesheet">
-    <link href="../../css/fontawesome-all.min.css?1762832373" rel="stylesheet">
-    <link href="../../css/hybrid.css?1762832373" rel="stylesheet">
-    <link href="../../css/featherlight.min.css?1762832373" rel="stylesheet">
-    <link href="../../css/perfect-scrollbar.min.css?1762832373" rel="stylesheet">
-    <link href="../../css/auto-complete.css?1762832373" rel="stylesheet">
-    <link href="../../css/atom-one-dark-reasonable.css?1762832373" rel="stylesheet">
-    <link href="../../css/theme.css?1762832373" rel="stylesheet">
-    <link href="../../css/hugo-theme.css?1762832373" rel="stylesheet">
+    <link href="../../css/nucleus.css?1762833771" rel="stylesheet">
+    <link href="../../css/fontawesome-all.min.css?1762833771" rel="stylesheet">
+    <link href="../../css/hybrid.css?1762833771" rel="stylesheet">
+    <link href="../../css/featherlight.min.css?1762833771" rel="stylesheet">
+    <link href="../../css/perfect-scrollbar.min.css?1762833771" rel="stylesheet">
+    <link href="../../css/auto-complete.css?1762833771" rel="stylesheet">
+    <link href="../../css/atom-one-dark-reasonable.css?1762833771" rel="stylesheet">
+    <link href="../../css/theme.css?1762833771" rel="stylesheet">
+    <link href="../../css/hugo-theme.css?1762833771" rel="stylesheet">
     
-    <link href="../../css/theme-workshop.css?1762832373" rel="stylesheet">
+    <link href="../../css/theme-workshop.css?1762833771" rel="stylesheet">
     
     
 
-    <script src="../../js/jquery-3.3.1.min.js?1762832373"></script>
+    <script src="../../js/jquery-3.3.1.min.js?1762833771"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -88,14 +88,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="../../js/lunr.min.js?1762832373"></script>
-<script type="text/javascript" src="../../js/auto-complete.js?1762832373"></script>
+<script type="text/javascript" src="../../js/lunr.min.js?1762833771"></script>
+<script type="text/javascript" src="../../js/auto-complete.js?1762833771"></script>
 <script type="text/javascript">
     
         var baseurl = "\/\/vi";
     
 </script>
-<script type="text/javascript" src="../../js/search.js?1762832373"></script>
+<script type="text/javascript" src="../../js/search.js?1762833771"></script>
  
   </div>
 
@@ -475,7 +475,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 <p><strong>Cloud Integration:</strong></p>
 <ul>
 <li>Kết nối Amplify với GitLab cho pipeline CI/CD.</li>
-<li>Cấu hình DynamoDB cho production.</li>
+<li>Cấu hình DynamoDB và SQL.</li>
 <li>Tích hợp API Gateway + Cognito.</li>
 <li>Kích hoạt logging CloudWatch và lớp bảo mật WAF.</li>
 </ul>
@@ -648,18 +648,18 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
       <tr>
           <td><strong>Total Estimate</strong></td>
           <td></td>
-          <td><strong>78.73</strong></td>
-          <td><strong>~255/13 tuần</strong></td>
+          <td><strong>81.16</strong></td>
+          <td><strong>~263/13 tuần</strong></td>
       </tr>
   </tbody>
 </table>
 <h3 id="tối-ưu-chi-phí">Tối ưu chi phí</h3>
 <p>Phần lớn thành phần sử dụng dịch vụ serverless và managed của AWS, giảm thiểu tài nguyên nhàn rỗi và chi phí vận hành.</p>
-<p>Compute: EC2 dùng Graviton t4g.medium chạy giới hạn 10h/ngày.</p>
+<p>Compute: EC2 dùng Graviton t4g.medium chạy giới hạn 10h/ngày cho dev/test.</p>
 <p>Database: EC2 t4g.micro phù hợp để triển khai cơ sở dữ liệu người dùng và DynamoDB được cấu hình vừa đủ cho tải dev/test, tránh dư thừa tài nguyên.</p>
 <p>Storage: Hai bucket S3 tách biệt cho dữ liệu gốc và web giúp tổ chức dữ liệu hợp lý và kiểm soát chi phí.</p>
 <p>Tích hợp &amp; bảo mật: Dùng HTTP API Gateway, một WAF rule, và một Route 53 zone để giảm chi phí định kỳ.</p>
-<p>Tổng chi phí khoảng 79 USD/tháng, thể hiện một hệ thống đã được tối ưu tốt.</p>
+<p>Tổng chi phí khoảng 81 USD/tháng, thể hiện một hệ thống đã được tối ưu tốt.</p>
 <hr>
 <h2 id="7-đánh-giá-rủi-ro">7. Đánh giá rủi ro</h2>
 <table>
@@ -785,19 +785,19 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="../../js/clipboard.min.js?1762832373"></script>
-    <script src="../../js/perfect-scrollbar.min.js?1762832373"></script>
-    <script src="../../js/perfect-scrollbar.jquery.min.js?1762832373"></script>
-    <script src="../../js/jquery.sticky.js?1762832373"></script>
-    <script src="../../js/featherlight.min.js?1762832373"></script>
-    <script src="../../js/highlight.pack.js?1762832373"></script>
+    <script src="../../js/clipboard.min.js?1762833771"></script>
+    <script src="../../js/perfect-scrollbar.min.js?1762833771"></script>
+    <script src="../../js/perfect-scrollbar.jquery.min.js?1762833771"></script>
+    <script src="../../js/jquery.sticky.js?1762833771"></script>
+    <script src="../../js/featherlight.min.js?1762833771"></script>
+    <script src="../../js/highlight.pack.js?1762833771"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="../../js/modernizr.custom-3.6.0.js?1762832373"></script>
-    <script src="../../js/learn.js?1762832373"></script>
-    <script src="../../js/hugo-learn.js?1762832373"></script>
+    <script src="../../js/modernizr.custom-3.6.0.js?1762833771"></script>
+    <script src="../../js/learn.js?1762833771"></script>
+    <script src="../../js/hugo-learn.js?1762833771"></script>
 
-    <link href="../../mermaid/mermaid.css?1762832373" rel="stylesheet" />
-    <script src="../../mermaid/mermaid.js?1762832373"></script>
+    <link href="../../mermaid/mermaid.css?1762833771" rel="stylesheet" />
+    <script src="../../mermaid/mermaid.js?1762833771"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

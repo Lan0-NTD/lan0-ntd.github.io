@@ -15,21 +15,21 @@
     <title>Proposal :: Internship Report</title>
 
     
-    <link href="../css/nucleus.css?1762832373" rel="stylesheet">
-    <link href="../css/fontawesome-all.min.css?1762832373" rel="stylesheet">
-    <link href="../css/hybrid.css?1762832373" rel="stylesheet">
-    <link href="../css/featherlight.min.css?1762832373" rel="stylesheet">
-    <link href="../css/perfect-scrollbar.min.css?1762832373" rel="stylesheet">
-    <link href="../css/auto-complete.css?1762832373" rel="stylesheet">
-    <link href="../css/atom-one-dark-reasonable.css?1762832373" rel="stylesheet">
-    <link href="../css/theme.css?1762832373" rel="stylesheet">
-    <link href="../css/hugo-theme.css?1762832373" rel="stylesheet">
+    <link href="../css/nucleus.css?1762833771" rel="stylesheet">
+    <link href="../css/fontawesome-all.min.css?1762833771" rel="stylesheet">
+    <link href="../css/hybrid.css?1762833771" rel="stylesheet">
+    <link href="../css/featherlight.min.css?1762833771" rel="stylesheet">
+    <link href="../css/perfect-scrollbar.min.css?1762833771" rel="stylesheet">
+    <link href="../css/auto-complete.css?1762833771" rel="stylesheet">
+    <link href="../css/atom-one-dark-reasonable.css?1762833771" rel="stylesheet">
+    <link href="../css/theme.css?1762833771" rel="stylesheet">
+    <link href="../css/hugo-theme.css?1762833771" rel="stylesheet">
     
-    <link href="../css/theme-workshop.css?1762832373" rel="stylesheet">
+    <link href="../css/theme-workshop.css?1762833771" rel="stylesheet">
     
     
 
-    <script src="../js/jquery-3.3.1.min.js?1762832373"></script>
+    <script src="../js/jquery-3.3.1.min.js?1762833771"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -88,14 +88,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="../js/lunr.min.js?1762832373"></script>
-<script type="text/javascript" src="../js/auto-complete.js?1762832373"></script>
+<script type="text/javascript" src="../js/lunr.min.js?1762833771"></script>
+<script type="text/javascript" src="../js/auto-complete.js?1762833771"></script>
 <script type="text/javascript">
     
         var baseurl = "\/";
     
 </script>
-<script type="text/javascript" src="../js/search.js?1762832373"></script>
+<script type="text/javascript" src="../js/search.js?1762833771"></script>
  
   </div>
 
@@ -473,7 +473,7 @@
 <p><strong>Cloud Integration</strong></p>
 <ul>
 <li>Amplify connected to GitLab repository for CI/CD pipeline.</li>
-<li>Configure DynamoDB for production.</li>
+<li>Configure DynamoDB and SQL.</li>
 <li>Integrate API Gateway + Cognito.</li>
 <li>Enable CloudWatch logging and WAF security layer.</li>
 </ul>
@@ -646,18 +646,18 @@
       <tr>
           <td><strong>Total Estimate</strong></td>
           <td></td>
-          <td><strong>78.73</strong></td>
-          <td><strong>~255/13 weeks</strong></td>
+          <td><strong>81.16</strong></td>
+          <td><strong>~263/13 weeks</strong></td>
       </tr>
   </tbody>
 </table>
 <h3 id="cost-optimization">Cost Optimization</h3>
 <p>Most components use serverless and managed AWS services, minimizing idle resources and operational overhead.</p>
-<p>Compute: EC2 uses Graviton t4g.medium with limited runtime (10h/day).</p>
+<p>Compute: EC2 uses Graviton t4g.medium with limited runtime (10h/day) for dev/test.</p>
 <p>Database: EC2 t4g.micro is suitable for hosting a userdatabase and DynamoDB are right-sized for dev/test load, avoiding over-provisioning.</p>
 <p>Storage: Separate S3 buckets for raw data and web hosting keep data organized and cost-controlled.</p>
 <p>Integration &amp; Security: Use of HTTP API Gateway, single WAF rule, and one Route 53 hosted zone reduces costs.</p>
-<p>Overall monthly cost is around 79 USD, reflecting a well-optimized deployment.</p>
+<p>Overall monthly cost is around 81 USD, reflecting a well-optimized deployment.</p>
 <hr>
 <h2 id="7-risk-assessment">7. Risk Assessment</h2>
 <table>
@@ -783,19 +783,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="../js/clipboard.min.js?1762832373"></script>
-    <script src="../js/perfect-scrollbar.min.js?1762832373"></script>
-    <script src="../js/perfect-scrollbar.jquery.min.js?1762832373"></script>
-    <script src="../js/jquery.sticky.js?1762832373"></script>
-    <script src="../js/featherlight.min.js?1762832373"></script>
-    <script src="../js/highlight.pack.js?1762832373"></script>
+    <script src="../js/clipboard.min.js?1762833771"></script>
+    <script src="../js/perfect-scrollbar.min.js?1762833771"></script>
+    <script src="../js/perfect-scrollbar.jquery.min.js?1762833771"></script>
+    <script src="../js/jquery.sticky.js?1762833771"></script>
+    <script src="../js/featherlight.min.js?1762833771"></script>
+    <script src="../js/highlight.pack.js?1762833771"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="../js/modernizr.custom-3.6.0.js?1762832373"></script>
-    <script src="../js/learn.js?1762832373"></script>
-    <script src="../js/hugo-learn.js?1762832373"></script>
+    <script src="../js/modernizr.custom-3.6.0.js?1762833771"></script>
+    <script src="../js/learn.js?1762833771"></script>
+    <script src="../js/hugo-learn.js?1762833771"></script>
 
-    <link href="../mermaid/mermaid.css?1762832373" rel="stylesheet" />
-    <script src="../mermaid/mermaid.js?1762832373"></script>
+    <link href="../mermaid/mermaid.css?1762833771" rel="stylesheet" />
+    <script src="../mermaid/mermaid.js?1762833771"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -98,7 +98,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 **Cloud Integration:**
 
 - Kết nối Amplify với GitLab cho pipeline CI/CD.  
-- Cấu hình DynamoDB cho production.  
+- Cấu hình DynamoDB và SQL.  
 - Tích hợp API Gateway + Cognito.  
 - Kích hoạt logging CloudWatch và lớp bảo mật WAF.
 
@@ -154,13 +154,13 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 | Security | Secrets Manager | 0.94 |  |
 | Security | WAF | 6.60 |  |
 | Monitoring | CloudWatch | 0.53 |  |
-| **Total Estimate** |  | **78.73** | **~255/13 tuần** |
+| **Total Estimate** |  | **81.16** | **~263/13 tuần** |
 
 ### Tối ưu chi phí
 
 Phần lớn thành phần sử dụng dịch vụ serverless và managed của AWS, giảm thiểu tài nguyên nhàn rỗi và chi phí vận hành.
 
-Compute: EC2 dùng Graviton t4g.medium chạy giới hạn 10h/ngày.
+Compute: EC2 dùng Graviton t4g.medium chạy giới hạn 10h/ngày cho dev/test.
 
 Database: EC2 t4g.micro phù hợp để triển khai cơ sở dữ liệu người dùng và DynamoDB được cấu hình vừa đủ cho tải dev/test, tránh dư thừa tài nguyên.
 
@@ -168,7 +168,7 @@ Storage: Hai bucket S3 tách biệt cho dữ liệu gốc và web giúp tổ ch�
 
 Tích hợp & bảo mật: Dùng HTTP API Gateway, một WAF rule, và một Route 53 zone để giảm chi phí định kỳ.
 
-Tổng chi phí khoảng 79 USD/tháng, thể hiện một hệ thống đã được tối ưu tốt.
+Tổng chi phí khoảng 81 USD/tháng, thể hiện một hệ thống đã được tối ưu tốt.
 
 ---
 
