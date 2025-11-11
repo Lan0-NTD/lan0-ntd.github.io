@@ -141,7 +141,7 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 
 | Component | AWS Service | Monthly Cost (USD) | Notes |
 |------------|-------------|--------------------|--------|
-| Frontend Hosting | Amplify | 3.68 |  |
+| Frontend Hosting | Amplify | 1.25 |  |
 | DNS/Routing | Route 53 | 2.04 |  |
 | Backend Compute/User Database | EC2 | 16.12 |  |
 | Vector Database | DynamoDB | 4.02 |  |
@@ -153,7 +153,7 @@ The system is orchestrated by AWS EC2, with automation through n8n workflows. Al
 | Security | Secrets Manager | 0.94 |  |
 | Security | WAF | 6.60 |  |
 | Monitoring | CloudWatch | 0.53 |  |
-| **Total Estimate** |  | **81.16** | **~263/13 weeks** |
+| **Total Estimate** |  | **78.73** | **~255/13 weeks** |
 
 ### Cost Optimization
 

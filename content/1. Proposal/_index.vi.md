@@ -142,7 +142,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 
 | Component | AWS Service | Monthly Cost (USD) | Ghi chú |
 |------------|-------------|--------------------|----------|
-| Frontend Hosting | Amplify | 3.68 |  |
+| Frontend Hosting | Amplify | 1.25 |  |
 | DNS/Routing | Route 53 | 2.04 |  |
 | Backend Compute | EC2 | 16.12 |  |
 | Vector Database | DynamoDB | 4.02 |  |
@@ -154,7 +154,7 @@ Toàn bộ xử lý AI và OCR được thực hiện qua API ngoài (OpenAI + D
 | Security | Secrets Manager | 0.94 |  |
 | Security | WAF | 6.60 |  |
 | Monitoring | CloudWatch | 0.53 |  |
-| **Total Estimate** |  | **81.16** | **~263/13 tuần** |
+| **Total Estimate** |  | **78.73** | **~255/13 tuần** |
 
 ### Tối ưu chi phí
 
